@@ -1,0 +1,14 @@
+{
+  "name": "inbep/google-analytics-service-provider",
+  "description": "Google Analytics for Silex",
+  "license": "MIT",
+  "require": {
+    "php": ">=5.3.3",
+    "silex/silex": "~1.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "Inbep\\Silex\\": "src"
+    }
+  }
+}
