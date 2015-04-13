@@ -22,7 +22,7 @@ class Google_Analytics_Extension extends \Twig_Extension
         return array(
             'ga' => new \Twig_Function_Method($this, 'getGa', array(
                 'is_safe' => array('html')
-            )
+            ))
         );
     }
 
