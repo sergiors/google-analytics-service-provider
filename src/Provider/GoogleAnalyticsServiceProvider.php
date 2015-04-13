@@ -16,7 +16,7 @@ class GoogleAnalyticsServiceProvider implements ServiceProviderInterface
 
         $app['twig.loader.filesystem'] = $app->share(
             $app->extend('twig.loader.filesystem', function ($loader) {
-                $loader->addPath(__DIR__.'/../Resource/views/');
+                $loader->addPath(__DIR__.'/../Resources/views/');
                 return $loader;
             })
         );
