@@ -3,38 +3,44 @@ namespace Inbep\Silex\Provider;
 
 use Silex\Application;
 use Silex\ServiceProviderInterface;
-use Inbep\Silex\Provider\Twig\Google_Analytics_Extension;
+use Inbep\Silex\EventListener\GoogleAnalyticsListener;
 
+/**
+ * @author Sérgio Rafael Siqueira <sergio@inbep.com.br>
+ */
 class GoogleAnalyticsServiceProvider implements ServiceProviderInterface
 {
     /**
-     * @param Silex\Application $app
+     * @param Application $app
      */
     public function register(Application $app)
     {
-        $app['analytics.code'] = null;
+        $app['ga.code'] = null;
 
-        $app['twig.loader.filesystem'] = $app->share(
-            $app->extend('twig.loader.filesystem', function ($loader) {
-                $loader->addPath(__DIR__.'/../Resources/views/');
-                return $loader;
-            })
-        );
+        $app['ga.listener'] = function ($app) {
+            return new GoogleAnalyticsListener($app['twig'], $app['ga.code']);
+        };
 
-        $app['twig'] = $app->share($app->extend('twig', function ($twig, $app) {
-            $code = $app['analytics.code'];
-            $twig->addExtension(new Google_Analytics_Extension($twig, $code));
-            return $twig;
-        }));
+        $app->extend('twig.loader.filesystem', function ($loader, $app) {
+            $loader->addPath($app['ga.templates_path'], 'GA');
+
+            return $loader;
+        });
+
+        $app['ga.templates_path'] = function () {
+            $reflection = new \ReflectionClass(GoogleAnalyticsListener::class);
+            
+            return dirname(dirname($reflection->getFileName())).'/Resources/views';
+        };
     }
 
     /**
-     * @param Silex\Application $app
+     * @param Application $app
      */
     public function boot(Application $app)
     {
-        if (!isset($app['twig'])) {
-            throw new \LogicException('You must register the TwigServiceProvider to use the GoogleAnalyricsServiceProvider');
+        if (isset($app['ga.listener'])) {
+            $app['dispatcher']->addSubscriber($app['ga.listener']);
         }
     }
 }
