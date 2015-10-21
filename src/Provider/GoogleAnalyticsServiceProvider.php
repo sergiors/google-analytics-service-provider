@@ -21,11 +21,12 @@ class GoogleAnalyticsServiceProvider implements ServiceProviderInterface
             return new GoogleAnalyticsListener($app['twig'], $app['ga.code']);
         };
 
-        $app->extend('twig.loader.filesystem', function ($loader, $app) {
-            $loader->addPath($app['ga.templates_path'], 'GA');
-
-            return $loader;
-        });
+        $app['twig.loader.filesystem'] = $app->share(
+            $app->extend('twig.loader.filesystem', function ($loader, $app) {
+                $loader->addPath($app['ga.templates_path'], 'GA');
+                return $loader;
+            })
+        );
 
         $app['ga.templates_path'] = function () {
             $reflection = new \ReflectionClass(GoogleAnalyticsListener::class);
