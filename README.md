@@ -3,7 +3,7 @@ How to use
 
 ```php
 // ...
-$app->register(new Inbep\Silex\Provider\GoogleAnalyticsServiceProvider(), [
+$app->register(new Sergiors\Silex\Provider\GoogleAnalyticsServiceProvider(), [
     'ga.code' => '{your code here}'
 ]);
 ```

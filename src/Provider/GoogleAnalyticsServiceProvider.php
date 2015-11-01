@@ -1,9 +1,9 @@
 <?php
-namespace Inbep\Silex\Provider;
+namespace Sergiors\Silex\Provider;
 
 use Silex\Application;
 use Silex\ServiceProviderInterface;
-use Inbep\Silex\EventListener\GoogleAnalyticsListener;
+use Sergiors\Silex\EventListener\GoogleAnalyticsListener;
 
 /**
  * @author Sérgio Rafael Siqueira <sergio@inbep.com.br>

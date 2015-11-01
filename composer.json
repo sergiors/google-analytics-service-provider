@@ -1,5 +1,5 @@
 {
-  "name": "inbep/google-analytics-service-provider",
+  "name": "sergiors/google-analytics-service-provider",
   "description": "Google Analytics for Silex",
   "license": "MIT",
   "authors": [
@@ -8,18 +8,24 @@
       "email": "sergio@inbep.com.br"
     }
   ],
+  "autoload": {
+    "psr-4": {
+      "Sergiors\\Silex\\": "src"
+    }
+  },
   "require": {
     "php": ">=5.5.9",
     "silex/silex": "~1.2",
     "twig/twig": "~1.18"
   },
-  "autoload": {
-    "psr-4": {
-      "Inbep\\Silex\\": "src"
-    }
-  },
   "require-dev": {
     "phpunit/phpunit": "^4.7",
-    "symfony/config": "^2.7"
+    "symfony/config": "^2.7",
+    "pdepend/pdepend": "~2.0",
+    "phing/phing": "~2.10",
+    "phploc/phploc": "~2.1",
+    "phpmd/phpmd": "~2.2",
+    "sebastian/phpcpd": "~2.0",
+    "squizlabs/php_codesniffer": "~2.1"
   }
 }

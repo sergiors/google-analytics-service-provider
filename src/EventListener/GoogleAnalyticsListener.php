@@ -1,5 +1,5 @@
 <?php
-namespace Inbep\Silex\EventListener;
+namespace Sergiors\Silex\EventListener;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
@@ -39,7 +39,8 @@ class GoogleAnalyticsListener implements EventSubscriberInterface
         }
 
         if ($response->isRedirection()
-            || ($response->headers->has('Content-Type') && false === strpos($response->headers->get('Content-Type'), 'html'))
+            || ($response->headers->has('Content-Type')
+                && false === strpos($response->headers->get('Content-Type'), 'html'))
             || 'html' !== $request->getRequestFormat()
         ) {
             return;

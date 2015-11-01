@@ -1,10 +1,10 @@
 <?php
-namespace Inbep\Silex\Provider;
+namespace Sergiors\Silex\Provider;
 
 use Silex\Application;
 use Silex\WebTestCase;
 use Silex\Provider\TwigServiceProvider;
-use Inbep\Silex\EventListener\GoogleAnalyticsListener;
+use Sergiors\Silex\EventListener\GoogleAnalyticsListener;
 
 class GoogleAnalyticsServiceProviderTest extends WebTestCase
 {
