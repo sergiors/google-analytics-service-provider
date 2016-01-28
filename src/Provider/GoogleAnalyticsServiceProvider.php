@@ -1,4 +1,5 @@
 <?php
+
 namespace Sergiors\Silex\Provider;
 
 use Silex\Application;
@@ -24,13 +25,14 @@ class GoogleAnalyticsServiceProvider implements ServiceProviderInterface
         $app['twig.loader.filesystem'] = $app->share(
             $app->extend('twig.loader.filesystem', function ($loader, $app) {
                 $loader->addPath($app['ga.templates_path'], 'GA');
+
                 return $loader;
             })
         );
 
         $app['ga.templates_path'] = function () {
             $reflection = new \ReflectionClass(GoogleAnalyticsListener::class);
-            
+
             return dirname(dirname($reflection->getFileName())).'/Resources/views';
         };
     }

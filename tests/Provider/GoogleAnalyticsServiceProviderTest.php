@@ -1,4 +1,5 @@
 <?php
+
 namespace Sergiors\Silex\Provider;
 
 use Silex\Application;
@@ -28,7 +29,7 @@ class GoogleAnalyticsServiceProviderTest extends WebTestCase
         $app = new Application();
         $app['debug'] = true;
         $app['exception_handler']->disable();
-        
+
         return $app;
     }
 }

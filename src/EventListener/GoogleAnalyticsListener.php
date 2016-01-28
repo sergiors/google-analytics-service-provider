@@ -1,4 +1,5 @@
 <?php
+
 namespace Sergiors\Silex\EventListener;
 
 use Symfony\Component\HttpFoundation\Response;
@@ -66,9 +67,9 @@ class GoogleAnalyticsListener implements EventSubscriberInterface
         }
 
         $trackingCode = "\n".$this->twig->render('@GA/ga_js.html.twig', [
-            'code' => $this->code
+            'code' => $this->code,
         ])."\n";
-        
+
         $content = substr($content, 0, $pos).$trackingCode.substr($content, $pos);
         $response->setContent($content);
     }
@@ -76,7 +77,7 @@ class GoogleAnalyticsListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            KernelEvents::RESPONSE => ['onKernelResponse', -128]
+            KernelEvents::RESPONSE => ['onKernelResponse', -128],
         ];
     }
 }

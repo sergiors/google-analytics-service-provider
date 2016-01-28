@@ -1,4 +1,5 @@
 <?php
+
 namespace Sergiors\Silex\EventListener;
 
 use Symfony\Component\HttpFoundation\Response;
@@ -6,8 +7,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-
-use Sergiors\Silex\EventListener\GoogleAnalyticsListener;
 
 class GoogleAnalyticsListenerTest extends \PHPUnit_Framework_TestCase
 {
