@@ -2,39 +2,41 @@
 
 namespace Sergiors\Silex\Provider;
 
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
 use Silex\Application;
-use Silex\ServiceProviderInterface;
+use Silex\Api\BootableProviderInterface;
 use Sergiors\Silex\EventListener\GoogleAnalyticsListener;
 
 /**
  * @author Sérgio Rafael Siqueira <sergio@inbep.com.br>
  */
-class GoogleAnalyticsServiceProvider implements ServiceProviderInterface
+class GoogleAnalyticsServiceProvider implements ServiceProviderInterface, BootableProviderInterface
 {
     /**
-     * @param Application $app
+     * @param Container $app
      */
-    public function register(Application $app)
+    public function register(Container $app)
     {
-        $app['ga.code'] = null;
-
         $app['ga.listener'] = function ($app) {
-            return new GoogleAnalyticsListener($app['twig'], $app['ga.code']);
+            return new GoogleAnalyticsListener($app['twig'], $app['ga.options']['tracking_code']);
         };
 
-        $app['twig.loader.filesystem'] = $app->share(
-            $app->extend('twig.loader.filesystem', function ($loader, $app) {
-                $loader->addPath($app['ga.templates_path'], 'GA');
+        $app['twig.loader.filesystem'] = $app->extend('twig.loader.filesystem', function ($loader, $app) {
+            $loader->addPath($app['ga.templates_path'], 'GA');
 
-                return $loader;
-            })
-        );
+            return $loader;
+        });
 
         $app['ga.templates_path'] = function () {
             $reflection = new \ReflectionClass(GoogleAnalyticsListener::class);
 
             return dirname(dirname($reflection->getFileName())).'/Resources/views';
         };
+
+        $app['ga.options'] = [
+            'tracking_code' => null
+        ];
     }
 
     /**

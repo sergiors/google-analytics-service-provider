@@ -15,12 +15,12 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class GoogleAnalyticsListener implements EventSubscriberInterface
 {
     protected $twig;
-    protected $code;
+    protected $trackingCode;
 
-    public function __construct(\Twig_Environment $twig, $code = null)
+    public function __construct(\Twig_Environment $twig, $trackingCode = null)
     {
         $this->twig = $twig;
-        $this->code = $code;
+        $this->trackingCode = $trackingCode;
     }
 
     /**
@@ -55,7 +55,7 @@ class GoogleAnalyticsListener implements EventSubscriberInterface
      */
     protected function injectTrackingCode(Response $response)
     {
-        if (empty($this->code)) {
+        if (empty($this->trackingCode)) {
             return;
         }
 
@@ -67,7 +67,7 @@ class GoogleAnalyticsListener implements EventSubscriberInterface
         }
 
         $trackingCode = "\n".$this->twig->render('@GA/ga_js.html.twig', [
-            'code' => $this->code,
+            'trackingCode' => $this->trackingCode,
         ])."\n";
 
         $content = substr($content, 0, $pos).$trackingCode.substr($content, $pos);
