@@ -55,7 +55,7 @@ class GoogleAnalyticsListener implements EventSubscriberInterface
      */
     protected function injectTrackingCode(Response $response)
     {
-        if (empty($this->trackingCode)) {
+        if (null === $this->trackingCode) {
             return;
         }
 

@@ -19,7 +19,7 @@ class GoogleAnalyticsServiceProvider implements ServiceProviderInterface, Bootab
     public function register(Container $app)
     {
         $app['ga.listener'] = function ($app) {
-            return new GoogleAnalyticsListener($app['twig'], $app['ga.options']['tracking_code']);
+            return new GoogleAnalyticsListener($app['twig'], $app['ga.tracking_code']);
         };
 
         $app['twig.loader.filesystem'] = $app->extend('twig.loader.filesystem', function ($loader, $app) {
@@ -34,9 +34,7 @@ class GoogleAnalyticsServiceProvider implements ServiceProviderInterface, Bootab
             return dirname(dirname($reflection->getFileName())).'/Resources/views';
         };
 
-        $app['ga.options'] = [
-            'tracking_code' => null
-        ];
+        $app['ga.tracking_code'] = null;
     }
 
     /**
